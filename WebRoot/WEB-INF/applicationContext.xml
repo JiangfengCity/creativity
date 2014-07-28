@@ -7,21 +7,12 @@
 	default-lazy-init="false">
 	
 	<!-- 对Hiberante的XML配置文件的操作 -->
-	<!-- <property name="url">
-			<value>jdbc:mysql://127.0.0.1:3336/ytkj?useUnicode=true&amp;characterEncoding=utf-8</value> 
-		</property>
-		<property name="username">
-			<value>root</value>
-		</property>
-		<property name="password">
-			<value>myoa888</value>
-		</property> -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName">
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://192.168.1.3:3306/ytkj?useUnicode=true&amp;characterEncoding=utf8</value> 
+			<value>jdbc:mysql://localhost:3306/ytkj?useUnicode=true&amp;characterEncoding=utf8</value> 
 		</property>
 		<property name="username">
 			<value>ytxt</value>
@@ -39,7 +30,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
 		
@@ -64,14 +55,14 @@
 	<bean
 		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
-	<bean id="actionWrapper" class="com.yutian.fw.ActionWrapper"
+	<!-- <bean id="actionWrapper" class="com.yutian.fw.ActionWrapper"
 		abstract="true">
 		<property name="vutils">
 			<ref bean="vutils" />
 		</property>
 	</bean>
 	
-	<bean id="vutils" class="com.yutian.util.Vutils"></bean>
+	<bean id="vutils" class="com.yutian.util.Vutils"></bean> -->
 
 	<bean id="commonDao" class="com.yutian.dao.CommonDao">
 		<property name="hibernateTemplate">
@@ -79,55 +70,8 @@
 		</property>
 	</bean>
 	
-	<!-- Service -->
-	<bean id="navConfigService" class="com.yutian.service.NavConfigService"/>
-	<bean id="productService" class="com.yutian.service.ProductService"/>
-	<bean id="contentService" class="com.yutian.service.ContentService"/>
-	<bean id="newsService" class="com.yutian.service.NewsService"/>
-	<bean id="serviceCaseService" class="com.yutian.service.ServiceCaseService"/>
-	<bean id="activityService" class="com.yutian.service.ActivityService"/>
-	<bean id="rollingImgService" class="com.yutian.service.RollingImgService"/>
-	
+	<bean id="termService" class="com.yutian.service.TermService"></bean>
+	<bean id="parterService" class="com.yutian.service.ParterService"></bean>
 	<bean id="entryService" class="com.yutian.service.EntryService"/>
 	
-
-	<!-- memcached 注入 -->
-	<bean id="memcachedPool" class="com.danga.MemCached.SockIOPool" factory-method="getInstance"
-        init-method="initialize" destroy-method="shutDown" lazy-init="false">
-        <constructor-arg>
-            <value>neeaMemcachedPool</value>
-        </constructor-arg>
-        <property name="servers">
-            <list>
-               <!-- <value>192.168.10.35:11211</value>
-               <value>192.168.10.41:11211</value> -->
-               <value>192.168.1.3:11211</value> 
-            </list>
-        </property>
-        <property name="initConn">
-            <value>20</value>
-        </property>
-        <property name="minConn">
-            <value>10</value>
-        </property>
-        <property name="maxConn">
-            <value>50</value>
-        </property>
-        <property name="maintSleep">
-            <value>30</value>
-        </property>
-        <property name="nagle">
-            <value>false</value>
-        </property>
-        <property name="socketTO">
-            <value>3000</value>
-        </property>
-    </bean>
-    <bean id="memcachedClient" class="com.danga.MemCached.MemCachedClient">
-        <constructor-arg>
-            <value>neeaMemcachedPool</value>
-        </constructor-arg>
-    </bean>
-    <bean id="memcachedManager" class="com.yutian.util.memcached.MemcachedManager"></bean>
-    
 </beans>
