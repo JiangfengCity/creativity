@@ -3,6 +3,55 @@
 
 <#include "/WEB-INF/pages/common/header.html" />
 
+<link type="text/css" rel="stylesheet"
+	href="${basePath!}/js/swfupload/default.css">
+<script type="text/javascript" src="${basePath!}/js/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="${basePath!}/js/swfupload/fileprogress.js"></script>
+<script type="text/javascript" src="${basePath!}/js/swfupload/handlers.js"></script>
+<script type="text/javascript">
+	var swfu;
+	window.onload = function() {
+		var settings = {
+			flash_url : "${basePath!}/js/swfupload/swfupload.swf",
+			upload_url : "${basePath!}/js/swfupload/template!batchUpload.action",
+			post_params : {
+				"name" : "jiangfeng"
+			},
+			file_post_name : "target",
+			file_size_limit : "100 MB",
+			file_types : "*.*",
+			file_types_description : "All Files",
+			file_upload_limit : 100,
+			file_queue_limit : 0,
+			custom_settings : {
+				progressTarget : "fsUploadProgress",
+				cancelButtonId : "btnCancel"
+			},
+			debug : true,
+			// Button settings
+			//button_image_url : "${basePath!}/js/swfupload/switch_o.png",
+			button_width : "65",
+			button_height : "29",
+			button_placeholder_id : "spanButtonPlaceHolder",
+			button_text : '<span class="theFont">选择图片</span>',
+			button_text_style : ".theFont { font-size: 16; }",
+			button_text_left_padding : 12,
+			button_text_top_padding : 3,
+
+			// The event handler functions are defined in handlers.js
+			swfupload_preload_handler : preLoad,
+			swfupload_load_failed_handler : loadFailed,
+			file_queued_handler : fileQueued,
+			file_queue_error_handler : fileQueueError,
+			upload_start_handler : uploadStart,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess
+		};
+		swfu = new SWFUpload(settings);
+	};
+</script>
+
 <body>
 	<div class="container">
 
@@ -11,10 +60,10 @@
 		<div class="content">
 			<div class="main_section">
 				<div class="ms_header">
-					<img src="./images/registor.png" alt="" />
+					<img src="${basePath!}/images/registor.png" alt="" />
 				</div>
 				<div class="ms_body">
-					<form action="${basePath!}/creativity!register.action" method="post">
+					<form action="" method="post">
 						<div class="registor_cont">
 							<div class="m_t10 m_t20">
 								<span>部门：</span> <select class="select" id="department" name="parter.department" >
@@ -29,11 +78,11 @@
 								</select>
 							</div>
 							<div class="m_t10">
-								<span>输入登录密码：</span> <input type="text" class="input" id="password" name="parter.password"
+								<span>输入登录密码：</span> <input type="password" class="input" id="password" name="parter.password"
 									placeholder="输入登录密码" />
 							</div>
 							<div class="m_t10">
-								<span>确认登录密码：</span> <input type="text" class="input" id="rep_password"
+								<span>确认登录密码：</span> <input type="password" class="input" id="rep_password"
 									placeholder="确认登录密码" />
 							</div>
 							<div class="m_t10">
@@ -45,12 +94,23 @@
 									placeholder="输入登录密码" /> <font>限100字</font>
 							</div>
 							<div class="m_t10">
-								<span>团队图片：</span> <a class="upload_btn">上传图片</a> <font
-									class="ml-20">可多选</font>
+								<span>团队图片：</span> 
+								<div id="divMovieContainer">
+									<span id="spanButtonPlaceHolder"></span>
+									<input value="开始上传" onclick="swfu.startUpload();" style="margin-left: 2px; font-size: 8pt; height: 29px;" type="button">
+									<!-- <input id="btnCancel" value="Cancel All Uploads" onclick="swfu.cancelQueue();" style="margin-left: 2px; font-size: 8pt; height: 29px;" type="button"> -->
+								</div>
+								<font class="ml-20">可多选</font>
 								<input type="hidden" id="term_logo" name="term.termLogo" />
 							</div>
+							
+							<div class="m_t10">
+								<div class="fieldset flash" id="fsUploadProgress">
+									<span class="legend">上传队列</span>
+								</div>
+							</div>
 							<div class="m_t10 m_t20">
-								<span></span> <a class="qr_btn" id="submit_button">确定</a> <a class="qx_btn ml-20" id="cancel_button">取消</a>
+								<span></span> <a class="qr_btn" href="javascript:doSubmit();">确定</a> <a class="qx_btn ml-20" id="cancel_button">取消</a>
 							</div>
 						</div>
 					</form>
@@ -65,31 +125,10 @@
 
 	</div>
 	<script>
+	var register_url = "${basePath!}/creativity!register.action";
+	var list_term_url = "${basePath!}/creativity!listTerm.action";
+	//页面初始化
 	$(function() {
-		$("#submit_button").click(function(){
-			var flag = false;
-			
-			var password = $("#password").value();
-			var rep_password = $("#rep_password").value();
-			if(password == rep_password){
-			}else{
-				alert("两次输入密码不一致！");
-				return;
-			}
-			
-			if($("#name").value()&&password&&rep_password&&
-			   $("#term_name").value()&&$("#term_slogan").value()&&$("#term_logo").value()){
-				flag = true;
-			}else{
-				flag = false;
-			}
-			
-			if(flag){
-				$("form:first").submit();	
-			}else{
-				alert("请补全报名信息！");
-			}
-		});
 		$("#cancel_button").click(function(){
 			$("form:first").get(0).reset();
 		});
@@ -99,6 +138,60 @@
 		}); */
 		$("input").placeholder();
 	});
+	
+	//处理提交操作
+	function doSubmit(){
+		var flag = false;
+		
+		var password = $("#password").val();
+		var rep_password = $("#rep_password").val();
+		if(password == rep_password){
+		}else{
+			alert("两次输入密码不一致！");
+			return;
+		}
+		var name = $("#name").val();
+		var term_name = $("#term_name").val()
+		var term_slogan = $("#term_slogan").val();
+		var term_logo = $("#term_logo").val();
+		if(name&&password&&rep_password&&
+				term_name&&term_slogan){//&&term_logo
+			flag = true;
+		}else{
+			flag = false;
+		}
+		
+		if(flag){
+			doRegister(name,password,term_name,term_slogan,term_logo);
+		}else{
+			alert("请补全报名信息！");
+		}
+	}
+	
+	//执行ajax操作
+	function doRegister(name,password,term_name,term_slogan,term_logo){
+		var data = "parter.name=" + encodeURIComponent(name) + "&parter.password=" + encodeURIComponent(password)+"&term.termName="+encodeURIComponent(term_name)
+		+"&term.termSlogan="+encodeURIComponent(term_slogan)+"&term.termLogo="+encodeURIComponent(term_logo);
+		getXmlReq();
+	    xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4) {
+				if(!xhr.responseText){
+				}else{
+					var msg = parseJson(xhr.responseText);
+					if(msg.status == 'fail'){
+						//将字体设为红色
+					}else if(msg.status == 'success'){
+						//将字体设为绿色
+						setTimeout(function(){location.href = assembleUrlAndMill(list_term_url);}, 500); 
+					}
+					alert(msg.msg);
+				}
+			}
+		};
+	    xhr.open("POST",assembleUrlAndMill(register_url), false);
+	    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    xhr.send(data);
+	}
 	</script>
 </body>
 </html>
