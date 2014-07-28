@@ -2,28 +2,35 @@ package com.yutian.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yutian.constant.CommonConstant;
 import com.yutian.entity.Entry;
+import com.yutian.entity.Parter;
+import com.yutian.entity.Term;
 import com.yutian.fw.ActionWrapper;
 import com.yutian.service.EntryService;
 import com.yutian.service.ParterService;
 import com.yutian.service.TermService;
 import com.yutian.util.Pagination;
 
-public class EntryAction extends ActionWrapper
+public class CreativityAction extends ActionWrapper
 {
 	private static final long	serialVersionUID	= 7573873848177505195L;
+	@Autowired
+	private ParterService 		parterService;
+	@Autowired
+	private EntryService 		entryService;
+	@Autowired
+	private TermService 		termService;
+	
 	private Entry				target;
 	private Pagination			page;
+	private Pagination 			entrys;
+	private Pagination 			terms;
 	
-	@Autowired
-	private ParterService parterService;
-	@Autowired
-	private EntryService entryService;
-	@Autowired
-	private TermService termService;
+	private Parter				parter;
+	private Term				term;
 	
-	private Pagination entrys;
-	private Pagination terms;
+	private String[] 			departs;
 	
 	public String execute(){
 		try{
@@ -33,6 +40,24 @@ public class EntryAction extends ActionWrapper
 			e.printStackTrace();
 		}
 		return "index";
+	}
+	
+	public String toLogin(){
+		return "login";
+	}
+	
+	public String login(){
+		
+		return NONE;
+	}
+	
+	public String toRegister(){
+		departs = CommonConstant.departments;
+		return "register";
+	}
+	
+	public String register(){
+		return NONE;
 	}
 	
 	public String list()
@@ -120,5 +145,30 @@ public class EntryAction extends ActionWrapper
 	public void setTarget(Entry target) {
 		this.target = target;
 	}
+
+	public String[] getDeparts() {
+		return departs;
+	}
+
+	public void setDeparts(String[] departs) {
+		this.departs = departs;
+	}
+
+	public Parter getParter() {
+		return parter;
+	}
+
+	public void setParter(Parter parter) {
+		this.parter = parter;
+	}
+
+	public Term getTerm() {
+		return term;
+	}
+
+	public void setTerm(Term term) {
+		this.term = term;
+	}
+
 
 }

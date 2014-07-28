@@ -4,8 +4,9 @@ package com.yutian.entity;
  * TermParter entity. @author MyEclipse Persistence Tools
  */
 
-public class TermParter implements java.io.Serializable {
+public class TermParter extends EntityBase implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1138335286906862227L;
 	// Fields
 
 	private Integer id;

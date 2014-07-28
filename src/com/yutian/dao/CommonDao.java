@@ -32,22 +32,21 @@ public class CommonDao extends HibernateDaoSupport
 		return getHibernateTemplate().getSessionFactory().openSession();
 	}
 
-	@SuppressWarnings( "unchecked" )
-	public List getListByHql( String hql )
+	public List<?> getListByHql( String hql )
 	{
-		List list = getHibernateTemplate().find( hql );
+		List<?> list = getHibernateTemplate().find( hql );
 		return list;
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public List getListByHql( String hql, Object[] o )
+	public List<Double> getListByHql( String hql, Object[] o )
 	{
-		List list = getHibernateTemplate().find( hql, o );
+		List<Double> list = getHibernateTemplate().find( hql, o );
 		return list;
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public final List getListByHql( final String hql, final Object[] args, final int pageNo, final int rows )
+	public final List<Object> getListByHql( final String hql, final Object[] args, final int pageNo, final int rows )
 	{
 		Session session = loadSession();
 		final int startRow = ( pageNo - 1 ) * rows;
@@ -63,7 +62,7 @@ public class CommonDao extends HibernateDaoSupport
 		query.setFirstResult( startRow );
 		query.setMaxResults( rows );
 		// getHibernateTemplate().getSessionFactory().close();
-		List list = query.list();
+		List<Object> list = query.list();
 		session.close();
 		return list;
 	}
@@ -126,7 +125,8 @@ public class CommonDao extends HibernateDaoSupport
 
 	public int getCountByHql( String hql, Object[] o )
 	{
-		List list = getHibernateTemplate().find( hql, o );
+		@SuppressWarnings("unchecked")
+		List<Double> list = getHibernateTemplate().find( hql, o );
 		if( list.size() == 0 || list.get( 0 ) == null )
 		{
 			return 0;
@@ -138,6 +138,7 @@ public class CommonDao extends HibernateDaoSupport
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public double getCountByHqlDouble( String hql, Object[] o )
 	{
 		List<Double> list = getHibernateTemplate().find( hql, o );
@@ -154,7 +155,7 @@ public class CommonDao extends HibernateDaoSupport
 	@SuppressWarnings( "unchecked" )
 	public Object getObjectSingle( String hql, Object[] o )
 	{
-		List list = getHibernateTemplate().find( hql, o );
+		List<Double> list = getHibernateTemplate().find( hql, o );
 		if( list.size() > 0 ) { return list.get( 0 ); }
 		return null;
 	}
@@ -171,7 +172,7 @@ public class CommonDao extends HibernateDaoSupport
 			pageNo = 1;
 		}
 
-		List list = getListByHql( hql, args, pageNo, rows );
+		List<Object> list = getListByHql( hql, args, pageNo, rows );
 
 		// 解析hql
 		String countHql = "";
@@ -191,7 +192,7 @@ public class CommonDao extends HibernateDaoSupport
 		return page;
 	}
 
-	public List loadAll( Class entityClass )
+	public List<?> loadAll( Class<?> entityClass )
 	{
 		return getHibernateTemplate().loadAll( entityClass );
 	}
@@ -217,6 +218,7 @@ public class CommonDao extends HibernateDaoSupport
 		{
 
 			List<Map<String, ?>> result = ( List<Map<String, ?>> )this.getHibernateTemplate().execute( new HibernateCallback() {
+				@SuppressWarnings("deprecation")
 				public Object doInHibernate( Session session ) throws HibernateException, SQLException
 				{
 
@@ -275,6 +277,7 @@ public class CommonDao extends HibernateDaoSupport
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public int executeSqltoInt( String sql )
 	{
 		Session session = loadSession();

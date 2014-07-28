@@ -12,10 +12,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.yutian.entity.Admin;
-import com.yutian.util.Constants;
 import com.yutian.util.ProjectConfigUtil;
-import com.yutian.util.Vutils;
 
 @SuppressWarnings( "serial" )
 public abstract class ActionWrapper extends ActionSupport
@@ -28,7 +25,6 @@ public abstract class ActionWrapper extends ActionSupport
 	protected int		pageNo	= 1;
 	protected int		rows	= 20;
 	protected String	referer;
-	public Vutils		vutils;
 
 	private String fileBasePath;
 	
@@ -89,15 +85,6 @@ public abstract class ActionWrapper extends ActionSupport
 		return ServletActionContext.getRequest();
 	}
 
-	public Vutils getVutils()
-	{
-		return vutils;
-	}
-
-	public void setVutils( Vutils vutils )
-	{
-		this.vutils = vutils;
-	}
 
 	protected static void put( String key, Object value )
 	{
@@ -131,19 +118,6 @@ public abstract class ActionWrapper extends ActionSupport
 		}
 	}
 
-	// 用户session
-	public Admin getAdminSession()
-	{
-
-		/*
-		 * 测试所用，需删
-		 */
-		// Admin admin = new Admin();
-		// admin.setId(0);
-		// getSession().setAttribute(Constants.SESSION_MEMBER,admin);
-
-		return ( Admin )getSession().getAttribute( Constants.SESSION_MEMBER );
-	}
 
 	public void setReferer( String referer )
 	{

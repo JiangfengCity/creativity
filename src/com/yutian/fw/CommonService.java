@@ -39,12 +39,13 @@ public class CommonService
 		dao.delete( o );
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T load( Class<T> clazz, Integer id )
 	{
 		return ( T )dao.getObject( clazz, id );
 	}
-
-	public Object loadAll( Class clazz )
+	
+	public Object loadAll( Class<?> clazz )
 	{
 		return dao.loadAll( clazz );
 	}

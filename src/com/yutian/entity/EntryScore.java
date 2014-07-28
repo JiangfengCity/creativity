@@ -4,8 +4,9 @@ package com.yutian.entity;
  * EntryScore entity. @author MyEclipse Persistence Tools
  */
 
-public class EntryScore implements java.io.Serializable {
+public class EntryScore extends EntityBase implements java.io.Serializable {
 
+	private static final long serialVersionUID = 171077027812146931L;
 	// Fields
 
 	private Integer id;

@@ -1,5 +1,6 @@
 package com.yutian.entity;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,15 +8,16 @@ import java.util.Set;
  * Parter entity. @author MyEclipse Persistence Tools
  */
 
-public class Parter implements java.io.Serializable {
+public class Parter extends EntityBase implements java.io.Serializable {
 
+	private static final long serialVersionUID = 5979810534926655030L;
 	// Fields
-
 	private Integer id;
 	private String name;
 	private String department;
 	private String password;
-	private Set terms = new HashSet(0);
+	private Timestamp createTime;
+	private Set<?> terms = new HashSet<Object>(0);
 
 	// Constructors
 
@@ -24,10 +26,12 @@ public class Parter implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Parter(String name, String department, String password, Set terms) {
+	public Parter(String name, String department, String password,
+			Timestamp createTime, Set<?> terms) {
 		this.name = name;
 		this.department = department;
 		this.password = password;
+		this.createTime = createTime;
 		this.terms = terms;
 	}
 
@@ -65,11 +69,19 @@ public class Parter implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Set getTerms() {
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
+	public Set<?> getTerms() {
 		return this.terms;
 	}
 
-	public void setTerms(Set terms) {
+	public void setTerms(Set<?> terms) {
 		this.terms = terms;
 	}
 

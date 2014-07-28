@@ -135,10 +135,8 @@ public class Utils {
 	 * @throws Exception
 	 */
 	public static Object decodeEntry(Object obj) throws Exception{
-		Class cls = obj.getClass();
+		Class<? extends Object> cls = obj.getClass();
 		System.out.println(cls);
-		String className = cls.getName();
-		
 		Field[] fieldlist = cls.getDeclaredFields();
 		 for (int i = 0; i < fieldlist.length; i++) {
              Field field = fieldlist[i];

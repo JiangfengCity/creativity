@@ -1,5 +1,6 @@
 package com.yutian.entity;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,8 +8,9 @@ import java.util.Set;
  * Term entity. @author MyEclipse Persistence Tools
  */
 
-public class Term implements java.io.Serializable {
+public class Term extends EntityBase implements java.io.Serializable {
 
+	private static final long serialVersionUID = 4765661376293426374L;
 	// Fields
 
 	private Integer id;
@@ -17,7 +19,8 @@ public class Term implements java.io.Serializable {
 	private String termSlogan;
 	private Short termCapacity;
 	private String termLogo;
-	private Set entries = new HashSet(0);
+	private Timestamp createTime;
+	private Set<?> entries = new HashSet<Object>(0);
 
 	// Constructors
 
@@ -32,13 +35,15 @@ public class Term implements java.io.Serializable {
 
 	/** full constructor */
 	public Term(Integer id, Parter parter, String termName, String termSlogan,
-			Short termCapacity, String termLogo, Set entries) {
+			Short termCapacity, String termLogo, Timestamp createTime,
+			Set<?> entries) {
 		this.id = id;
 		this.parter = parter;
 		this.termName = termName;
 		this.termSlogan = termSlogan;
 		this.termCapacity = termCapacity;
 		this.termLogo = termLogo;
+		this.createTime = createTime;
 		this.entries = entries;
 	}
 
@@ -92,11 +97,19 @@ public class Term implements java.io.Serializable {
 		this.termLogo = termLogo;
 	}
 
-	public Set getEntries() {
+	public Timestamp getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
+	public Set<?> getEntries() {
 		return this.entries;
 	}
 
-	public void setEntries(Set entries) {
+	public void setEntries(Set<?> entries) {
 		this.entries = entries;
 	}
 
