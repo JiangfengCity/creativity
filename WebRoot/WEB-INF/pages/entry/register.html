@@ -3,54 +3,10 @@
 
 <#include "/WEB-INF/pages/common/header.html" />
 
-<link type="text/css" rel="stylesheet"
-	href="${basePath!}/js/swfupload/default.css">
+<link type="text/css" rel="stylesheet" href="${basePath!}/js/swfupload/default.css">
 <script type="text/javascript" src="${basePath!}/js/swfupload/swfupload.js"></script>
 <script type="text/javascript" src="${basePath!}/js/swfupload/fileprogress.js"></script>
 <script type="text/javascript" src="${basePath!}/js/swfupload/handlers.js"></script>
-<script type="text/javascript">
-	var swfu;
-	window.onload = function() {
-		var settings = {
-			flash_url : "${basePath!}/js/swfupload/swfupload.swf",
-			upload_url : "${basePath!}/js/swfupload/template!batchUpload.action",
-			post_params : {
-				"name" : "jiangfeng"
-			},
-			file_post_name : "target",
-			file_size_limit : "100 MB",
-			file_types : "*.*",
-			file_types_description : "All Files",
-			file_upload_limit : 100,
-			file_queue_limit : 0,
-			custom_settings : {
-				progressTarget : "fsUploadProgress",
-				cancelButtonId : "btnCancel"
-			},
-			debug : true,
-			// Button settings
-			//button_image_url : "${basePath!}/js/swfupload/switch_o.png",
-			button_width : "65",
-			button_height : "29",
-			button_placeholder_id : "spanButtonPlaceHolder",
-			button_text : '<span class="theFont">选择图片</span>',
-			button_text_style : ".theFont { font-size: 16; }",
-			button_text_left_padding : 12,
-			button_text_top_padding : 3,
-
-			// The event handler functions are defined in handlers.js
-			swfupload_preload_handler : preLoad,
-			swfupload_load_failed_handler : loadFailed,
-			file_queued_handler : fileQueued,
-			file_queue_error_handler : fileQueueError,
-			upload_start_handler : uploadStart,
-			upload_progress_handler : uploadProgress,
-			upload_error_handler : uploadError,
-			upload_success_handler : uploadSuccess
-		};
-		swfu = new SWFUpload(settings);
-	};
-</script>
 
 <body>
 	<div class="container">
@@ -95,17 +51,14 @@
 							</div>
 							<div class="m_t10">
 								<span>团队图片：</span> 
-								<div id="divMovieContainer">
-									<span id="spanButtonPlaceHolder"></span>
-									<input value="开始上传" onclick="swfu.startUpload();" style="margin-left: 2px; font-size: 8pt; height: 29px;" type="button">
-									<!-- <input id="btnCancel" value="Cancel All Uploads" onclick="swfu.cancelQueue();" style="margin-left: 2px; font-size: 8pt; height: 29px;" type="button"> -->
-								</div>
+								<a class="upload_btn" ><span id="spanButtonPlaceHolder"></span></a>
+								<a class="upload_btn" href="javascript:swfu.startUpload();">开始上传</a>
 								<font class="ml-20">可多选</font>
 								<input type="hidden" id="term_logo" name="term.termLogo" />
 							</div>
 							
-							<div class="m_t10">
-								<div class="fieldset flash" id="fsUploadProgress">
+							<div class="m_t20">
+								<div class="fieldset flash" id="fsUploadProgress" style="margin:10px 200px;">
 									<span class="legend">上传队列</span>
 								</div>
 							</div>
@@ -125,10 +78,50 @@
 
 	</div>
 	<script>
+	var swfu;
 	var register_url = "${basePath!}/creativity!register.action";
 	var list_term_url = "${basePath!}/creativity!listTerm.action";
 	//页面初始化
 	$(function() {
+		var settings = {
+			flash_url : "${basePath!}/js/swfupload/swfupload.swf",
+			upload_url : "${basePath!}/js/swfupload/creativity!upload.action",
+			post_params : {
+				"name" : "jiangfeng"
+			},
+			file_post_name : "target",
+			file_size_limit : "100 MB",
+			file_types : "*.*",
+			file_types_description : "All Files",
+			file_upload_limit : 100,
+			file_queue_limit : 0,
+			custom_settings : {
+				progressTarget : "fsUploadProgress",
+				//cancelButtonId : "btnCancel"
+			},
+			debug : false,
+			// Button settings
+			//button_image_url : "${basePath!}/js/swfupload/switch_o.png",
+			button_width : "65",
+			button_height : "29",
+			button_placeholder_id : "spanButtonPlaceHolder",
+			button_text : '<span class="theFont">选择图片</span>',
+			button_text_style : ".theFont { font-size: 13;color:#00a0e9}",
+			button_text_left_padding : 0,
+			button_text_top_padding : 8,
+
+			// The event handler functions are defined in handlers.js
+			swfupload_preload_handler : preLoad,
+			swfupload_load_failed_handler : loadFailed,
+			file_queued_handler : fileQueued,
+			file_queue_error_handler : fileQueueError,
+			upload_start_handler : uploadStart,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess,
+			upload_complete_handler : uploadComplete
+		};
+		swfu = new SWFUpload(settings);
 		$("#cancel_button").click(function(){
 			$("form:first").get(0).reset();
 		});
