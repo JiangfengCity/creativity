@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.multipart.saveDir" value="E:\company_website\upload\" />
+	<constant name="struts.multipart.maxSize" value="209715200" />
+ 
+	<package name="default" extends="struts-default">
+		<result-types>
+			<result-type name="freemarker"
+				class="org.apache.struts2.views.freemarker.FreemarkerResult"
+				default="true" />
+		</result-types>
+
+		<!-- 创意大赛 -->
+		<action name="creativity" class="com.yutian.action.CreativityAction">
+			<result name="index">/WEB-INF/pages/entry/index.html</result>
+			<result name="register">/WEB-INF/pages/entry/register.html</result>
+			
+			<result name="login">/WEB-INF/pages/entry/login.html</result>
+			<result name="list">/WEB-INF/pages/entry/list.html</result>
+			<result name="enter">/WEB-INF/pages/entry/enter.html</result>
+		</action>
+		
+	</package>
+
+</struts>
