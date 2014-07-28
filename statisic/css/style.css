@@ -138,6 +138,7 @@ font,span{ vertical-align: middle}
 .ml-60{margin-left: 60px;}
 .ml-12{margin-left:12px}
 .mr-12{margin-right:12px}
+.mr-20{margin-right:20px}
 .mr-40{margin-right: 40px;}
 .mt-5{margin-top:5px;}
 .mt-6{margin-top:6px;}
@@ -227,7 +228,7 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 .registor_cont{padding:0 0 20px 0;}
 .registor_cont>.m_t10>span{display: inline-block;width: 200px;text-align: right;vertical-align: middle;}
 .registor_cont>.m_t10>font{font-size: 12px;color:#707070;}
-.upload_btn{display: inline-block;cursor: pointer;height: 34px;line-height: 34px;width: 100px;text-align: center;border:1px solid #0172a6;border-radius: 4px;color:#00a0e9;}
+.upload_btn{vertical-align: top;display: inline-block;cursor: pointer;height: 34px;line-height: 34px;width: 100px;text-align: center;border:1px solid #0172a6;border-radius: 4px;color:#00a0e9;}
 .qr_btn{display: inline-block;cursor: pointer;height: 34px;line-height: 34px;width: 110px;text-align: center;border-radius: 4px;color:white;background-color: #005bb0;border-bottom: 2px solid #002a81;border-right: 1px solid #002a81;font-size: 14px;}
 .qx_btn{display: inline-block;cursor: pointer;height: 34px;line-height: 34px;width: 110px;text-align: center;border-radius: 4px;color:#707070;background-color: #dcdcdc;border-bottom: 2px solid #959595;border-right: 1px solid #959595;font-size: 14px;}
 .qr_btn:hover{background-color: #0172a6;}
@@ -238,7 +239,7 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 .index_intro1{width: 70%;float: left;}
 .index_intro2{width: 25%;float: right;}
 .intro_content{padding:0 10px 15px 20px;position: relative;min-height: 245px;}
-.intro_content h1{font-size: 14px;margin-top: 35px;}
+.intro_content>h1{font-size: 14px;margin-top: 35px;}
 .index_showDetail{position: absolute;bottom: 15px;right:15px;cursor: pointer;}
 .intro_title{height: 20px;line-height: 20px;color: white;background-color: #00a0e9;padding-left: 20px;margin-top: 10px;}
 .intro_content1{padding:0 10px 15px 10px;min-height: 265px;}
@@ -260,6 +261,32 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 
 /*************** rule_detail.html *******************/
 .rule_detail{padding:10px 20px 20px 20px;}
+
+/*************** team_list.html *******************/
+.team_btn_pos{position: absolute;right: 30px;top:10px;}
+.mask{background: url("../images/wid_bg.png") repeat;position: fixed;left:0;right:0;top:0;bottom:0;z-index: 5; font-size: 14px;}
+.popUp{border-radius: 4px;width: 500px;overflow: hidden;position: absolute;left:50%;margin-left:-250px;background-color: white;}
+.p_head{height: 36px;line-height: 36px;background-color: #00a0e9;color:white;position: relative;}
+.p_head>span{margin-left:20px;}
+.p_head>img{position: absolute;right:10px;top:50%;margin-top: -10px;cursor: pointer;width: 16px;height: 16px;}
+.p_body{padding:15px;}
+.p_footer{height: 60px;line-height: 60px;border-top: 1px solid #dcdcdc;text-align: center;}
+.isJoin_popUp{position:absolute;top:50%;margin-top: -140px; }
+
+/*************** team_detail.html *******************/
+.team_detail_cont{padding:30px 30px 50px 50px;}
+.team_detail_cont>h1{font-size: 16px;}
+.team_detail_cont>p{font-size: 14px;}
+.name_btn{border-radius: 4px;border:1px solid #bfbfbf;width: 90px;height: 30px;line-height: 30px;display: inline-block;text-align: center;cursor: pointer;}
+.team_detail_cont .name_btn{margin-right: 10px;margin-bottom: 10px;}
+.team_detail_cont .name_btn:hover{background:url(../images/del_icon1.png) 70px center no-repeat;}
+.detail_title{font-size: 16px;font-weight: bold;}
+.download_btn{display: inline-block;cursor: pointer;height: 34px;line-height: 34px;width: 110px;text-align: center;border-radius: 4px;color:white;background-color: #ffc000;border-bottom: 2px solid #846300;border-right: 1px solid #846300;font-size: 14px;}
+.download_btn:hover{background-color: #f19149;}
+.show_works{border-radius: 4px;border:1px solid #ccc;width: 260px;height: 180px;padding:5px;float: left;margin-right: 20px;margin-bottom: 20px;}
+.show_works>img{width: 100%;height: 100%;}
+
+
 
 
 
