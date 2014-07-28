@@ -18,6 +18,8 @@ import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
 public class Utils {
 
+	
+	
 	@SuppressWarnings("deprecation")
 	public static void setCookie(HttpServletResponse response,String key,String value){
 		Cookie cookie=new Cookie(key,URLEncoder.encode(value));

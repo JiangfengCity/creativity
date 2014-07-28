@@ -2,6 +2,7 @@ package com.yutian.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yutian.constant.CommonConstant;
 import com.yutian.entity.Entry;
 import com.yutian.entity.Parter;
@@ -10,6 +11,7 @@ import com.yutian.fw.ActionWrapper;
 import com.yutian.service.EntryService;
 import com.yutian.service.ParterService;
 import com.yutian.service.TermService;
+import com.yutian.util.LocalCommonUtil;
 import com.yutian.util.Pagination;
 
 public class CreativityAction extends ActionWrapper
@@ -31,6 +33,8 @@ public class CreativityAction extends ActionWrapper
 	private Term				term;
 	
 	private String[] 			departs;
+	
+	private JSONObject 			asyc_resp;
 	
 	public String execute(){
 		try{
@@ -57,7 +61,16 @@ public class CreativityAction extends ActionWrapper
 	}
 	
 	public String register(){
-		return NONE;
+		try{
+			parterService.save(parter);
+			term.setParter(parter);
+			termService.save(term);
+			asyc_resp = LocalCommonUtil.assembleMsg(CommonConstant.RESP_SUCCESS,"报名成功");
+		}catch(Exception e){
+			e.printStackTrace();
+			asyc_resp = LocalCommonUtil.assembleMsg(CommonConstant.RESP_FAIL, "报名失败");
+		}
+		return "asyc_resp";
 	}
 	
 	public String list()
@@ -168,6 +181,14 @@ public class CreativityAction extends ActionWrapper
 
 	public void setTerm(Term term) {
 		this.term = term;
+	}
+
+	public JSONObject getAsyc_resp() {
+		return asyc_resp;
+	}
+
+	public void setAsyc_resp(JSONObject asyc_resp) {
+		this.asyc_resp = asyc_resp;
 	}
 
 

@@ -16,5 +16,7 @@ public class CommonConstant {
 										 "杭州专阅教育科技有限公司",	
 										 "杭州盛世钱塘科技有限公司",	
 										 "北京新创智阅科技有限公司",};
+	public static String RESP_SUCCESS = "success";
+	public static String RESP_FAIL =	"fail";
 	
 }
