@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<#include "/WEB-INF/pages/inc/header.html" />
+<body>
+
+<div class="main"><div class="inner">
+    <!--[内容区]-->
+    <div class="mod-barner shadow">
+        <img src="${basePath!}/skin/images/barner-news.png" width="960" height="118" alt="关注宇天，共谋发展;关注互联网，共同成长" />
+    </div>
+    
+    <div class="bl-20"></div>
+    
+    <div class="mod-drc shadow">
+        <a href="index.action">首页</a> <span class="spliter">-&gt;</span>
+        <a href="content.action?navType=${navType!}">关于宇天</a> <span class="spliter">-&gt;</span>
+      	<a href="content!list.action?navType=${navType!}&navId=${navId!}">党员之家</a> <span class="spliter">-&gt;</span>
+      	内容详情
+    </div>
+    <div class="bl-15"></div>
+    
+    <!--[模块]-->
+    <div class="mod-art">
+        <div class="hd">
+            <h1 class="t">${content.title!}</h1>
+            <p class="t-info">${content.createTime?string('yyyy-MM-dd')!}</p>
+        </div>
+        <div class="bd">
+            <div class="art">
+            	${content.content!}   
+            </div>
+        </div>
+        
+        <ul class="art-pre-next">
+           <#if content.pre??>
+            <li class="pre"><label>上一篇：</label><a href="content!detail.action?navType=${navType!}&content.id=${content.pre.id!}">${content.pre.title!}</a></li>
+        </#if>
+        <#if content.next??>
+            <li class="next"><label>下一篇：</label><a href="content!detail.action?navType=${navType!}&content.id=${content.next.id!}">${content.next.title!}</a></li>
+        </#if>
+        </ul>
+     </div>
+    <!--[/模块]-->
+    <!--[/内容区]-->
+</div></div>
+
+
+<#include "/WEB-INF/pages/inc/footer.html" />
+</body>
+</html>

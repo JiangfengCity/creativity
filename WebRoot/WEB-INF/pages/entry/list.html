@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>list.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    <#if entrys??>
+    	<#list entrys.resultList as entry>
+    		<#if entry_index gt 4 ><#break></#break></#if>
+    		<!-- 遍历显示entry的属性 -->
+    	</#list>
+    </#if>
+  </body>
+</html>

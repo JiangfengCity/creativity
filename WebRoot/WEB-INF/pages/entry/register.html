@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<#include "/WEB-INF/pages/common/header.html" />
+
+<body>
+	<div class="container">
+
+		<#include "/WEB-INF/pages/common/body_header.html" />
+
+		<div class="content">
+			<div class="main_section">
+				<div class="ms_header">
+					<img src="./images/registor.png" alt="" />
+				</div>
+				<div class="ms_body">
+					<form action="${basePath!}/creativity!register.action" method="post">
+						<div class="registor_cont">
+							<div class="m_t10 m_t20">
+								<span>部门：</span> <select class="select" id="department" name="parter.department" >
+									<#list departs as department>
+										<option value="${department!}" <#if department_index = 0>selected="selected"</#if>>${department!}</option>
+									</#list>
+								</select>
+							</div>
+							<div class="m_t10">
+								<span>姓名：</span> <input type="text" class="input" id="name" name="parter.name"
+									placeholder="输入员工姓名(即账户名)" />
+								</select>
+							</div>
+							<div class="m_t10">
+								<span>输入登录密码：</span> <input type="text" class="input" id="password" name="parter.password"
+									placeholder="输入登录密码" />
+							</div>
+							<div class="m_t10">
+								<span>确认登录密码：</span> <input type="text" class="input" id="rep_password"
+									placeholder="确认登录密码" />
+							</div>
+							<div class="m_t10">
+								<span>团队名称：</span> <input type="text" class="input" id="term_name" name="term.termName"
+									placeholder="输入团队口号" /> <font>限20字</font>
+							</div>
+							<div class="m_t10">
+								<span>团队口号：</span> <input type="text" class="input" id="term_slogan" name="term.termSlogan"
+									placeholder="输入登录密码" /> <font>限100字</font>
+							</div>
+							<div class="m_t10">
+								<span>团队图片：</span> <a class="upload_btn">上传图片</a> <font
+									class="ml-20">可多选</font>
+								<input type="hidden" id="term_logo" name="term.termLogo" />
+							</div>
+							<div class="m_t10 m_t20">
+								<span></span> <a class="qr_btn" id="submit_button">确定</a> <a class="qx_btn ml-20" id="cancel_button">取消</a>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="qr_btn reg_loginBtn">登录</div>
+
+			</div>
+		</div>
+
+		<#include "/WEB-INF/pages/common/footer.html" />
+
+	</div>
+	<script>
+	$(function() {
+		$("#submit_button").click(function(){
+			var flag = false;
+			
+			var password = $("#password").value();
+			var rep_password = $("#rep_password").value();
+			if(password == rep_password){
+			}else{
+				alert("两次输入密码不一致！");
+				return;
+			}
+			
+			if($("#name").value()&&password&&rep_password&&
+			   $("#term_name").value()&&$("#term_slogan").value()&&$("#term_logo").value()){
+				flag = true;
+			}else{
+				flag = false;
+			}
+			
+			if(flag){
+				$("form:first").submit();	
+			}else{
+				alert("请补全报名信息！");
+			}
+		});
+		$("#cancel_button").click(function(){
+			$("form:first").get(0).reset();
+		});
+		
+		/* $("#department").change(function(){
+			$(this).value;
+		}); */
+		$("input").placeholder();
+	});
+	</script>
+</body>
+</html>

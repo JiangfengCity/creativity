@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<#include "/WEB-INF/pages/inc/header.html" />
+<body>
+<div class="main"><div class="inner">
+    <!--[内容区]-->
+    <div class="mod-barner shadow">
+    <#if navType == 3>
+        <img src="${basePath}/skin/images/barner-co.png" width="960" height="118" alt="协同创造价值，拼搏共享财富" />
+    </#if>
+    <#if navType == 5>
+        <img src="${basePath}/skin/images/barner-about-us.png" width="960" height="118" alt=" 与时俱进 不断创新；努力成为卓越的互联网品牌" />
+    </#if>
+    <#if navType == 6>
+        <img src="${basePath}/skin/images/barner-join-us.png" width="960" height="118" alt="加入宇天，实现梦想；共创美好未来！" />
+    </#if>
+    </div>
+    
+    <div class="bl-20"></div>
+    
+    <div class="mod-drc shadow">
+        <a href="index.action">首页</a> <span class="spliter">-&gt;</span>
+        <a href="content.action?navType=${navType!}"><#if navType == 3>战略合作</#if><#if navType == 5>关于宇天</#if><#if navType == 6>加入我们</#if></a> <span class="spliter">-&gt;</span>
+        ${navConfig.name!}
+    </div>
+    <div class="bl-15"></div>
+    
+    <!--[模块]-->
+    <div class="s1m3 clearFix">
+        <div class="col-main">
+            <div class="main-wrap">
+                <!--[左栏]-->
+                <div class="mod-info">
+                    <div class="hd-info"><h1 class="t">${navConfig.name!}</h1></div>
+                    <div class="bd-art">
+                    <#if content??>
+                    <#if navConfig.contentType == 5>
+                    	<h4 class="center">${content.title!}</h4>
+                        <div class="bl-15"></div>
+                        <P align=center>${content.createTime?string('yyyy-MM-dd')!}</P>
+                    </#if>
+						${content.content!}   
+					</#if> 
+					
+					<#if navConfig.contentType == 7>
+					<!-- 员工活动展示 -->
+					<#assign activityList = vutils.getActivityList()>
+					<#if activityList?? && activityList.size() gt 0>
+						<div class="bl"></div>
+						<h4>二、员工活动</h4>
+						<div class="list-pics-w">
+							<div class="list-pics">
+                            <div class="pic-w">
+								<ul>
+								<#list activityList as activity>
+								<#if activity_index == 0 >
+									<li>
+										<div><img src="${fileBasePath!}${activity.zoomImgPath!}" alt="" /><span>${activity.description!}</span></div>
+								<#elseif (activity_index + 1) % 9 == 0 >		
+										<div><img src="${fileBasePath!}${activity.zoomImgPath!}" alt="" /><span>${activity.description!}</span></div>
+									</li>
+									<li>
+								<#else>		
+										<div><img src="${fileBasePath!}${activity.zoomImgPath!}" alt="" /><span>${activity.description!}</span></div>
+								</#if>
+								<#if activity_index == activityList.size() - 1 && activityList.size() % 9 != 0>
+									</li>
+								</#if>
+								</#list>
+								</ul>
+							</div>
+                            <div class="btn-w">
+                                <a href="javascript:;" class="btn btn-pre">上一组</a>
+                                <a href="javascript:;" class="btn btn-next">下一组</a>
+                            </div>
+	                        <script type="text/javascript">
+	                        new homeFlash({'so':$('.list-pics .pic-w li'), 'sow':678, 'po':null, 'tran':'slide', 'speed':300, 'auto':false, 'hover':true, 
+										'btn_pre':$('.list-pics .btn-pre'),
+										'btn_next':$('.list-pics .btn-next')
+							});
+							$('.list-pics .pic-w div').hover(function(){$(this).addClass('hover')}, function(){$(this).removeClass('hover')});
+							if($('.list-pics .pic-w li').length<2){
+							    $('.list-pics .btn-w').hide();
+							}
+	                        </script>
+	                        
+	                    </div></div>
+					</#if>					
+					</#if>      
+           	        </div>
+           		</div>
+                <!--[/左栏]-->
+            </div>
+        </div>
+        <div class="col-sub">
+            <!--[右栏]-->
+            <dl class="mod-info-nav clearFix shadow">
+                <dt>『<#if navType == 3>战略合作</#if><#if navType == 5>关于宇天</#if><#if navType == 6>加入我们</#if>』</dt>
+                <#assign list = vutils.getNavList(navType)>
+                <#list list as nav>
+                <dd><a <#if nav.contentType == 4 || nav.contentType == 5 || nav.contentType == 6>href="content!list.action?navType=${navType!}&navId=${nav.id!}"<#else>href="content.action?navType=${navType!}&navId=${nav.id!}"</#if> <#if nav.id == navConfig.id>class="cur"</#if>><span class="icon-arr"></span>${nav.name!}<span class="arr-cur"></span></a></dd>
+            	</#list>
+            </dl>
+            <!--[/右栏]-->
+        </div>
+    </div>
+    <!--[/模块]-->
+    <!--[/内容区]-->
+</div></div>
+
+<#include "/WEB-INF/pages/inc/footer.html" />
+</body>
+</html>

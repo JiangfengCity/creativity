@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<#include "/WEB-INF/pages/inc/header.html" />
+<body>
+<div class="main"><div class="inner">
+    <!--[内容区]-->
+    <div class="mod-barner shadow">
+    <#if navType == 3>
+        <img src="${basePath}/skin/images/barner-co.png" width="960" height="118" alt="协同创造价值，拼搏共享财富" />
+    </#if>
+    <#if navType == 5>
+        <img src="${basePath}/skin/images/barner-about-us.png" width="960" height="118" alt=" 与时俱进 不断创新；努力成为卓越的互联网品牌" />
+    </#if>
+    <#if navType == 6>
+        <img src="${basePath}/skin/images/barner-join-us.png" width="960" height="118" alt="加入宇天，实现梦想；共创美好未来！" />
+    </#if>
+    </div>
+    
+    <div class="bl-20"></div>
+    
+    <div class="mod-drc shadow">
+        <a href="index.action">首页</a> <span class="spliter">-&gt;</span>
+        <a href="content.action?navType=${navType!}"><#if navType == 3>战略合作</#if><#if navType == 5>关于宇天</#if><#if navType == 6>加入我们</#if></a> <span class="spliter">-&gt;</span>
+        ${navConfig.name!}
+    </div>
+    <div class="bl-15"></div>
+    
+     <!--[模块]-->
+    <div class="s1m3 clearFix">
+        <div class="col-main">
+            <div class="main-wrap">
+                <!--[左栏]-->
+            <#if navConfig.contentType == 4>
+                <!-- 发展历程 -->
+                <div class="mod-info">
+                    <div class="hd-info"><h1 class="t">${navConfig.name!}</h1></div>
+                    <div class="bd-art" <#if navConfig.contentType == 4>style="background:url(${basePath}/skin/images/bg-about-us-history.jpg) no-repeat scroll right 20px;"</#if>>
+                        <div class="bl-20"></div>
+                        <div class="date-tree" style="width:500px;">
+                            <div class="tp"></div>
+                            <div class="con">
+                           	<#if contentList?? && contentList.size() gt 0>
+                           	<#assign date = contentList.get(0).createTime?string('yyyy')>
+                           	<#assign dateCompare = contentList.get(0).createTime?string('yyyy')>
+                           	<#list contentList as development>
+                           		<#assign dateCompare = development.createTime?string('yyyy')>
+                           		<#if development_index == 0>
+                                <ul class="list-news-date list-news-shortdate">
+                                    <li class="year shadow">${date!}</li>
+                                    <li><span class="d">${development.createTime?string('MM-dd')!}</span><a href="javascript:;">${development.title!}</a></li>
+                                <#elseif dateCompare != date>
+                                <#assign date = dateCompare>
+                                </ul>
+                                <ul class="list-news-date list-news-shortdate">
+                                    <li class="year shadow">${date!}</li>
+                                    <li><span class="d">${development.createTime?string('MM-dd')!}</span><a href="javascript:;">${development.title!}</a></li>
+                                <#else>
+                                    <li><span class="d">${development.createTime?string('MM-dd')!}</span><a href="javascript:;">${development.title!}</a></li>
+                                </#if>
+                                <#if development_index == contentList.size() - 1>
+                                </ul>
+                                </#if>
+                            </#list>
+                            </#if>
+                            </div>
+                            <div class="bt"></div>
+                        </div>              
+                    </div>
+                </div>
+             <#elseif navConfig.contentType == 5>
+             	<!-- 党员之家 -->
+             	<div class="mod-info">
+					<div class="hd-info"><h1 class="t">${navConfig.name!}</h1></div>
+					<div class="bd-art">
+						<p><img src="${basePath!}/skin/images/about-us-party.jpg" width="446" height="145" alt="党员之家" /></p>   
+						<ul class="list-news-date">
+						<#if contentList??>
+						<#list contentList as party>
+							<li><span class="d">${party.createTime?string('yyyy-MM-dd')!}</span><a href="content!detail.action?navType=${navType!}&content.id=${party.id!}" target="_blank">${party.title!}</a></li>
+						</#list>
+						</#if>
+						</ul>                 
+					</div>
+				</div>
+             <#elseif navConfig.contentType == 6>
+             	<!-- 招聘信息 -->
+             	<div class="mod-info">
+                    <div class="hd-info"><h1 class="t">${navConfig.name!}</h1></div>
+                    <#if contentList??>
+                    <div class="bd-art">
+                        <div class="bl"></div>
+                        <ul class="list-job-title">
+                        <#list contentList as job>
+                            <li><a href="javascript:void(0);">${job.title!}${job.number!}人</a></li>
+                        </#list>
+                        </ul>
+                        <div class="bl-20"></div>
+                        
+                        <ul class="list-job">
+                            <#list contentList as job>
+                            <li>
+                                <div class="title">
+                                    <h4>${job.title!}${job.number!}人</h4>
+                                    <a href="mailto:${job.email!}" class="link-mail">投递简历</a>
+                                </div>
+                                <div class="desc">
+                                ${job.content!}
+                                </div>
+                            </li>
+                            </#list>
+                        </ul>                     
+                        <script type="text/javascript">
+                        $(function(){
+						    var links=$('.list-job-title li a');
+							links.each(function(i){$(this).attr('idx', i)});
+							links.bind('click', function(){
+							    if($(this).hasClass('cur'))return;
+								var idx=$(this).attr('idx')*1;
+								$('.list-job-title li a').removeClass('cur');
+								$(this).addClass('cur');
+								$('.list-job li').hide();
+								$('.list-job li').eq(idx).show();
+							});
+						});
+                        </script>
+                    </div>
+                    </#if>
+                </div>
+             </#if>
+                <!--[/左栏]-->
+            </div>
+        </div>
+        <div class="col-sub">
+            <!--[右栏]-->
+            <dl class="mod-info-nav clearFix shadow">
+                <dt>『<#if navType == 3>战略合作</#if><#if navType == 5>关于宇天</#if><#if navType == 6>加入我们</#if>』</dt>
+                <#assign list = vutils.getNavList(navType)>
+                <#list list as nav>
+                <dd><a <#if nav.contentType == 4 || nav.contentType == 5 || nav.contentType == 6>href="content!list.action?navType=${navType!}&navId=${nav.id!}"<#else>href="content.action?navType=${navType!}&navId=${nav.id!}"</#if> <#if nav.id == navConfig.id>class="cur"</#if>><span class="icon-arr"></span>${nav.name!}<span class="arr-cur"></span></a></dd>
+            	</#list>
+            </dl>
+            <!--[/右栏]-->
+        </div>
+    </div>
+    <!--[/模块]-->
+    
+    
+    <!--[/内容区]-->
+</div></div>
+
+<#include "/WEB-INF/pages/inc/footer.html" />
+</body>
+</html>

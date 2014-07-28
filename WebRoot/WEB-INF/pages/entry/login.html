@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<#include "/WEB-INF/pages/common/header.html" />
+
+<body>
+	<div class="container">
+
+		<#include "/WEB-INF/pages/common/body_header.html" />
+
+		<div class="content">
+			<div class="main_section">
+				<div class="ms_header">
+					<img src="./images/login_title.png" alt="" />
+				</div>
+				<div class="ms_body">
+					<div class="login_content">
+						<div class="login_right">
+							<div class="login_r_head">
+								<span>挑战杯团长登录</span>
+							</div>
+							<div class="login_r_cont">
+								<div class="tip_area">
+									<span>两次密码输入不匹配！</span>
+								</div>
+								<p class="login_input1_area">
+									<span class="login_user"> <input type="text"
+										placeholder="请输入您的用户名" />
+									</span> <span class="login_pass"> <input type="text"
+										placeholder="请输入您的密码" />
+									</span>
+								</p>
+								<p class="v_middle">
+									<input type="text" class="login_input2" /> <span
+										class="login_authCode"> <img id="random"
+										src="http://www.kuyun360.com/construction/common/jsp/random.jsp"
+										class=""></span> <a href="javascript:void(0)"
+										class="ml-10 mb-7">换一换</a>
+								</p>
+								<p>
+									<span class="login_btn">登录</span>
+								</p>
+							</div>
+							<img src="./images/login_trigon.png" alt="" class="login_trigon" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<#include "/WEB-INF/pages/common/footer.html" />
+
+	</div>
+
+	<script>
+		$(function() {
+			$("input").placeholder();
+		});
+	</script>
+</body>
+</html>
