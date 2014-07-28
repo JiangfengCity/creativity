@@ -1,5 +1,12 @@
 package com.yutian.action;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
@@ -24,7 +31,7 @@ public class CreativityAction extends ActionWrapper
 	@Autowired
 	private TermService 		termService;
 	
-	private Entry				target;
+	private Entry				entry;
 	private Pagination			page;
 	private Pagination 			entrys;
 	private Pagination 			terms;
@@ -35,6 +42,10 @@ public class CreativityAction extends ActionWrapper
 	private String[] 			departs;
 	
 	private JSONObject 			asyc_resp;
+	
+	private File target;
+	private String targetContentType;
+	private String targetFileName;
 	
 	public String execute(){
 		try{
@@ -82,17 +93,20 @@ public class CreativityAction extends ActionWrapper
 		return "show";
 	}
 
-	public String toEnter()
-	{
-		return "toEnter";
+	public String upload(){
+		ServletContext c = ServletActionContext.getServletContext();
+		try {
+			String preservePath = "/img/"+targetFileName;
+			FileUtils.copyFile(target, new File(c.getRealPath("")+preservePath));
+			//success  error=0
+			asyc_resp = LocalCommonUtil.assembleMsg(CommonConstant.RESP_SUCCESS,"上传成功",getBasePath()+preservePath);
+		} catch (IOException e) {
+			//fail error=1
+			e.printStackTrace();
+			asyc_resp = LocalCommonUtil.assembleMsg(CommonConstant.RESP_FAIL,"上传失败");
+		}
+		return "asyc_resp";
 	}
-
-	public String doEnter()
-	{
-		return "save";
-	}
-	
-	
 	
 	
 	@Override
@@ -151,14 +165,6 @@ public class CreativityAction extends ActionWrapper
 		this.terms = terms;
 	}
 
-	public Entry getTarget() {
-		return target;
-	}
-
-	public void setTarget(Entry target) {
-		this.target = target;
-	}
-
 	public String[] getDeparts() {
 		return departs;
 	}
@@ -191,5 +197,34 @@ public class CreativityAction extends ActionWrapper
 		this.asyc_resp = asyc_resp;
 	}
 
+	public String getTargetContentType() {
+		return targetContentType;
+	}
 
+	public void setTargetContentType(String targetContentType) {
+		this.targetContentType = targetContentType;
+	}
+
+	public String getTargetFileName() {
+		return targetFileName;
+	}
+
+	public void setTargetFileName(String targetFileName) {
+		this.targetFileName = targetFileName;
+	}
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
+	}
+
+	public File getTarget() {
+		return target;
+	}
+
+	public void setTarget(File target) {
+		this.target = target;
+	}
 }
