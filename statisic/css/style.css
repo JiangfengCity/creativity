@@ -237,8 +237,31 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 /*************** index.html *******************/
 .index_intro1{width: 70%;float: left;}
 .index_intro2{width: 25%;float: right;}
-.intro_content{padding:10px 10px 15px 20px;}
-.intro_content h1{font-size: 14px;}
+.intro_content{padding:0 10px 15px 20px;position: relative;min-height: 245px;}
+.intro_content h1{font-size: 14px;margin-top: 35px;}
+.index_showDetail{position: absolute;bottom: 15px;right:15px;cursor: pointer;}
+.intro_title{height: 20px;line-height: 20px;color: white;background-color: #00a0e9;padding-left: 20px;margin-top: 10px;}
+.intro_content1{padding:0 10px 15px 10px;min-height: 265px;}
+.intro_content1>ul{margin-top:10px;}
+.intro_content1>ul>li{background: url(../images/index_icon1.png) 5px center no-repeat;padding-left: 25px;}
+.step_content{padding:20px 20px 30px 20px;text-align: center;}
+.step_content>img{vertical-align: middle;}
+.team_content{padding:15px;}
+.team_cont_sec{float: left;width: 116px;margin-left:15px;margin-bottom:15px;}
+.team_cont_sec>img{margin-bottom: 5px;width: 116px;height: 89px;}
+.team_cont_sec>p{line-height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.join_btn{display:inline-block;border-radius: 4px;padding:0 15px;height:24px;line-height: 24px;color:white;background-color: #ffc000;cursor: pointer;font-size: 14px;}
+.join_btn:hover{background-color: #f19149;}
+.works_content{padding:15px;}
+.works_cont_sec{float: left;width: 168px;margin-left:15px;margin-bottom:15px;position: relative;}
+.works_cont_sec>img{margin-bottom: 5px;width: 100%;height: 100px;}
+.works_cont_sec>p{line-height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100px;}
+.works_cont_sec>.join_btn{position: absolute;right: 0;bottom: 0;}
+
+/*************** rule_detail.html *******************/
+.rule_detail{padding:10px 20px 20px 20px;}
+
+
 
 
 
