@@ -10,7 +10,7 @@
 	<constant name="struts.multipart.saveDir" value="E:\company_website\upload\" />
 	<constant name="struts.multipart.maxSize" value="209715200" />
  
-	<package name="default" extends="struts-default">
+	<package name="default" extends="struts-default,json-default">
 		<result-types>
 			<result-type name="freemarker"
 				class="org.apache.struts2.views.freemarker.FreemarkerResult"
@@ -21,7 +21,7 @@
 		<action name="creativity" class="com.yutian.action.CreativityAction">
 			<result name="index">/WEB-INF/pages/entry/index.html</result>
 			<result name="register">/WEB-INF/pages/entry/register.html</result>
-			
+			<result name="asyc_resp" type="json"><param name="root">asyc_resp</param></result>
 			<result name="login">/WEB-INF/pages/entry/login.html</result>
 			<result name="list">/WEB-INF/pages/entry/list.html</result>
 			<result name="enter">/WEB-INF/pages/entry/enter.html</result>
