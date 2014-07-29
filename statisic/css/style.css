@@ -258,6 +258,8 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 .works_cont_sec>img{margin-bottom: 5px;width: 100%;height: 100px;}
 .works_cont_sec>p{line-height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100px;}
 .works_cont_sec>.join_btn{position: absolute;right: 0;bottom: 0;}
+.grade_popUp{position: absolute;top:50%;margin-top: -190px;}
+.index_grade>.grade_sec{width: 100px;margin-left: 43px;text-align: center;}
 
 /*************** rule_detail.html *******************/
 .rule_detail{padding:10px 20px 20px 20px;}
@@ -286,6 +288,10 @@ html,body{height: 100%;margin: 0;padding:0;color:#434343;}
 .show_works{border-radius: 4px;border:1px solid #ccc;width: 260px;height: 180px;padding:5px;float: left;margin-right: 20px;margin-bottom: 20px;}
 .show_works>img{width: 100%;height: 100%;}
 .team_detail_cont .download_btn{position: absolute;right: 22px;top:0;}
+.grade{margin-top: 10px;padding:15px 0;border-top: 1px solid #ccc;text-align: center;}
+.grade_sec{font-weight: bold;float: left;margin-left: 20px;width: 124px;}
+.score{color:red;font-size: 24px;}
+.grade_sec>select{width: 60px;margin-top: 10px;}
 
 
 
