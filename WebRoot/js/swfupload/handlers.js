@@ -28,7 +28,6 @@ function fileQueued(file) {
 		progress.toggleCancel(true, this);
 
 	} catch (ex) {
-		this.debug(ex);
 	}
 
 }
@@ -47,25 +46,20 @@ function fileQueueError(file, errorCode, message) {
 		switch (errorCode) {
 		case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
 			progress.setStatus("File is too big.");
-			this.debug("Error Code: File too big, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
 			progress.setStatus("Cannot upload Zero Byte files.");
-			this.debug("Error Code: Zero byte file, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
 			progress.setStatus("Invalid File Type.");
-			this.debug("Error Code: Invalid File Type, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		default:
 			if (file !== null) {
 				progress.setStatus("Unhandled Error");
 			}
-			this.debug("Error Code: " + errorCode + ", File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
     }
 }
 
@@ -93,19 +87,38 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {
 		progress.setProgress(percent);
 		progress.setStatus("Uploading...");
 	} catch (ex) {
-		this.debug(ex);
 	}
 }
 
 function uploadSuccess(file, serverData) {
 	try {
-		var progress = new FileProgress(file, this.customSettings.progressTarget);
-		progress.setComplete();
-		progress.setStatus("Complete.");
-		progress.toggleCancel(false);
-
+		var resp = parseJson(serverData);
+		if(resp.status == 'success'){
+			//自定义逻辑处理
+			//alert(resp.extend);
+			
+			//图形处理，demo自带
+			var progress = new FileProgress(file, this.customSettings.progressTarget);
+			progress.setComplete();
+			progress.setStatus("Complete.");
+			progress.toggleCancel(false);
+		}else{
+			alert(resp.msg);
+		}
+		
 	} catch (ex) {
-		this.debug(ex);
+	}
+}
+
+function uploadComplete(file) {
+	try {
+		alert(this.getStats().files_queued);
+		/*  I want the next upload to continue automatically so I'll call startUpload here */
+		if (this.getStats().files_queued > 0) {
+			this.startResizedUpload(this.getFile(0).ID, 100, 100, SWFUpload.RESIZE_ENCODING.JPEG, 100);
+		}
+	} catch (ex) {
+		alert("异常");
 	}
 }
 
@@ -118,27 +131,21 @@ function uploadError(file, errorCode, message) {
 		switch (errorCode) {
 		case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
 			progress.setStatus("Upload Error: " + message);
-			this.debug("Error Code: HTTP Error, File name: " + file.name + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
 			progress.setStatus("Upload Failed.");
-			this.debug("Error Code: Upload Failed, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.IO_ERROR:
 			progress.setStatus("Server (IO) Error");
-			this.debug("Error Code: IO Error, File name: " + file.name + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
 			progress.setStatus("Security Error");
-			this.debug("Error Code: Security Error, File name: " + file.name + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
 			progress.setStatus("Upload limit exceeded.");
-			this.debug("Error Code: Upload Limit Exceeded, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
 			progress.setStatus("Failed Validation.  Upload skipped.");
-			this.debug("Error Code: File Validation Failed, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
 			progress.setStatus("Cancelled");
@@ -149,11 +156,9 @@ function uploadError(file, errorCode, message) {
 			break;
 		default:
 			progress.setStatus("Unhandled Error: " + errorCode);
-			this.debug("Error Code: " + errorCode + ", File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
 			break;
 		}
 	} catch (ex) {
-        this.debug(ex);
     }
 }
 
