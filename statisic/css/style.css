@@ -169,7 +169,7 @@ font,span{ vertical-align: middle}
 .border_dcdcdc{border: 1px solid #dcdcdc}
 .v_img{ vertical-align: middle}
 .border{border:1px solid #ccc}
-.relative{position: relative;z-index: 9999}
+.relative{position: relative;}
 .pointer{cursor: pointer;}
 .v_top{vertical-align: top;}
 .border_bfbfbf{border-right: 1px solid #bfbfbf;}
